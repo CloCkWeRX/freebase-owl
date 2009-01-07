@@ -88,7 +88,7 @@ class USDA_Food extends USDA_Base {
             return $result;
         }
 
-        $sql = "SELECT nutrient_id FROM food_nutrients WHERE nbd_id = " . $this->nbd_id . " LIMIT 3";
+        $sql = "SELECT nutrient_id FROM food_nutrients WHERE nbd_id = " . $this->nbd_id;
         $nutrients = $this->db->queryCol($sql);
 
         $this->nutrients = array();
@@ -99,7 +99,7 @@ class USDA_Food extends USDA_Base {
             $this->nutrients[] = $nutrient;
         }
 
-        $sql = "SELECT sequence FROM weights WHERE nbd_id = " . $this->nbd_id . " LIMIT 3";
+        $sql = "SELECT sequence FROM weights WHERE nbd_id = " . $this->nbd_id;
         $weights = $this->db->queryCol($sql);
         foreach ($weights as $sequence) {
             $weight = new USDA_Weight($this->db);
@@ -108,7 +108,7 @@ class USDA_Food extends USDA_Base {
             $this->weights[] = $weight;
         }
 
-        $sql = "SELECT footnote_id FROM footnotes WHERE nbd_id = " . $this->nbd_id . " LIMIT 3";
+        $sql = "SELECT footnote_id FROM footnotes WHERE nbd_id = " . $this->nbd_id;
         $footnotes = $this->db->queryCol($sql);
         foreach ($footnotes as $footnote_id) {
             $footnote = new USDA_Footnote($this->db);
@@ -117,7 +117,7 @@ class USDA_Food extends USDA_Base {
             $this->footnotes[] = $footnote; 
         }
         
-        $sql = "SELECT datasrc_id FROM data_links WHERE nbd_id = " . $this->nbd_id . " LIMIT 3";
+        $sql = "SELECT datasrc_id FROM data_links WHERE nbd_id = " . $this->nbd_id;
         $data_links = $this->db->queryCol($sql);
         foreach ($data_links as $datasrc_id) {
             $data_link = new USDA_DataLink($this->db);
