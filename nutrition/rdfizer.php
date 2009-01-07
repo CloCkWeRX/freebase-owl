@@ -1,122 +1,20 @@
 <?php
-require_once 'MDB2.php';
-require_once 'USDA/Base.php';
-require_once 'USDA/DataLink.php';
-require_once 'USDA/DataSource.php';
-require_once 'USDA/FoodGroup.php';
-require_once 'USDA/FoodNutrient.php';
-require_once 'USDA/Food.php';
-require_once 'USDA/Nutrient.php';
-require_once 'USDA/Source.php';
-require_once 'USDA/Weight.php';
-require_once 'XML/Beautifier.php';
+require_once 'common.php';
 
-
-function create_database($db) {
-    $footnote = new USDA_Footnote($db);
-    $sql[] = $footnote->getCreateStatement();
-
-    $food_nutrient = new USDA_FoodNutrient($db);
-    $sql[] = $food_nutrient->getCreateStatement();
-
-    $weight = new USDA_Weight($db);
-    $sql[] = $weight->getCreateStatement();
-
-    $food = new USDA_Food($db);
-    $sql[] = $food->getCreateStatement();
-
-    $food_group = new USDA_FoodGroup($db);
-    $sql[] = $food_group->getCreateStatement();
-
-    $nutrient = new USDA_Nutrient($db);
-    $sql[] = $nutrient->getCreateStatement();
-
-    $source = new USDA_Source($db);
-    $sql[] = $source->getCreateStatement();
-
-    $link = new USDA_DataLink($db);
-    $sql[] = $link->getCreateStatement();
-
-    $source = new USDA_DataSource($db);
-    $sql[] = $source->getCreateStatement();
-
-    foreach ($sql as $query) {
-        $res = $db->query($query);
-        if (MDB2::isError($res)) {
-            print $query . "\n";
-            print $res->getMessage() . "\n\n";
-        }
-    }
-}
-
-function map_line($data, $object) {
-    $object->updateFromArray($data);
-
-     $object->insert();
-
-    return $object;
-}
-
-function map_data($fp, $object, $stdout) {
-    fwrite($stdout, "Inserting\n");
-
-    $i = 0;
-    while (($data = fgetcsv($fp, 0, "^", "~")) !== false) {
-        map_line($data, $object);
-        $i++;
-        fwrite($stdout, "Inserted $i record(s) for " . get_class($object) . "\n");
-    }
-
-    fwrite($stdout, "Completed $i record(s)\n");
-    fclose($fp);
-}
-
-
-// 0. Look for data files, configuration
-if (file_exists('config.php')) {
-    include 'config.php';
+if (php_sapi_name() == 'cli') {
+    // php rdfizer.php 1001
+    $nbd_id = isset($_SYSTEM['argv'][2]) ? $_SYSTEM['argv'][2] : 1001;
 } else {
-    $dsn = 'mysql://user:password@localhost/usda';
-    $path = dirname(__FILE__);
+    $nbd_id = isset($_GET['nbd_id']) ? $_GET['nbd_id'] : 1001;
 }
-
-$db = MDB2::connect($dsn);
-
-
-/*
-// 1. Connect to sqlite, ensure table structures exist
-// CREATE DATABASE usda
-create_database($db);
-
-// 2. Import each file into the relevant tables
-
-
-$stdout = fopen('php://stdout', 'w');
-
-
-map_data(fopen($path . '/FOOD_DES.txt', 'r'), new USDA_Food($db), $stdout);
-map_data(fopen($path . '/FD_GROUP.txt', 'r'), new USDA_FoodGroup($db), $stdout);
-map_data(fopen($path . '/NUT_DATA.txt', 'r'), new USDA_FoodNutrient($db), $stdout);
-map_data(fopen($path . '/NUTR_DEF.txt', 'r'), new USDA_Nutrient($db), $stdout);
-map_data(fopen($path . '/SRC_CD.txt', 'r'), new USDA_Source($db), $stdout);
-
-map_data(fopen($path . '/WEIGHT.txt', 'r'), new USDA_Weight($db), $stdout);
-map_data(fopen($path . '/FOOTNOTE.txt', 'r'), new USDA_Footnote($db), $stdout);
-
-map_data(fopen($path . '/DATSRCLN.txt', 'r'), new USDA_DataLink($db), $stdout);
-map_data(fopen($path . '/DATA_SRC.txt', 'r'), new USDA_DataSource($db), $stdout);
-*/
-
-
-// 3. Foreach item, select * from tables
 
 $food = new USDA_Food($db);
-$food->load(1001);
-//$food->load(35231);
+$food->load($nbd_id);
+
 
 $group = $food->group;
 
-// 4. Render!
+
 ob_start();
 ?>
 <rdf:RDF 
