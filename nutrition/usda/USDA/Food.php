@@ -23,6 +23,7 @@ class USDA_Food extends USDA_Base {
     public $nutrients = array();
     public $weights = array();
     public $footnotes = array();
+    public $data_links = array();
     public $group;
 
     public function __construct(MDB2_Driver_Common $db) {
