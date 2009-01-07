@@ -3,7 +3,7 @@ require_once 'common.php';
 
 if (php_sapi_name() == 'cli') {
     // php rdfizer.php 1001
-    $nbd_id = isset($_SYSTEM['argv'][2]) ? $_SYSTEM['argv'][2] : 1001;
+    $nbd_id = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : 1001;
 } else {
     $nbd_id = isset($_GET['nbd_id']) ? $_GET['nbd_id'] : 1001;
 }
