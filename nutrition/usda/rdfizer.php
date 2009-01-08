@@ -23,51 +23,8 @@ ob_start();
     xmlns:usda="http://lauken.com/doconnor/food/0.1/#"
 
     xmlns:dbpprop="http://dbpedia.org/property/">
-    <usda:Food rdf:about="#food-<?php print $food->nbd_id; ?>">
-        <dc:title><?php print $food->title; ?></dc:title>
-        <dc:description><?php print $food->description; ?></dc:description>
-        <usda:food_group rdf:resource="#foodgroup-<?php print $food->group_id; ?>" />
-
-        <?php if (!empty($food->nitrogen_factor)) { ?>
-            <usda:nitrogen_factor><?php print $food->nitrogen_factor; ?></usda:nitrogen_factor>
-        <?php } ?>
-
-        <?php if (!empty($food->protein_factor)) { ?>
-            <usda:protein_factor><?php print $food->protein_factor; ?></usda:protein_factor>
-        <?php } ?>
-
-        <?php if (!empty($food->fat_factor)) { ?>
-            <usda:fat_factor><?php print $food->fat_factor; ?></usda:fat_factor>
-        <?php } ?>
-        
-        <?php if (!empty($food->carbohydrate_factor)) { ?>
-            <usda:carbohydrate_factor><?php print $food->carbohydrate_factor; ?></usda:carbohydrate_factor>
-        <?php } ?>
-
-        <?php if (!empty($food->alias)) { ?>
-            <dc:title><?php print $food->alias; ?></dc:title>
-        <?php } ?>
-
-        <?php if (!empty($food->company)) { ?>
-            <foaf:maker><?php print $food->company; ?></foaf:maker>
-        <?php } ?>
-
-        <?php if (!empty($food->survey)) { ?>
-            <usda:survey><?php print $food->survey; ?></usda:survey>
-        <?php } ?>
-
-        <?php if (!empty($food->refuse)) { ?>
-            <usda:refuse><?php print $food->refuse; ?></usda:refuse>
-        <?php } ?>
-
-        <?php if (!empty($food->refuse_description)) { ?>
-            <usda:refuse_description><?php print $food->refuse_description; ?></usda:refuse_description>
-        <?php } ?>
-
-        <?php if (!empty($food->scientific_name)) { ?>
-            <dc:title><?php print $food->scientific_name; ?></dc:title>
-        <?php } ?>
-    </usda:Food>
+    
+    <?php print render_food($food); ?>
 
     <usda:FoodGroup rdf:about="#foodgroup-<?php print $group->group_id; ?>">
         <dc:title><?php print $group->description; ?></dc:title>

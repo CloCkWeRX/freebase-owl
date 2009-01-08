@@ -25,9 +25,14 @@ function create_database($db) {
 }
 
 function map_line($data, $object) {
+    foreach ($data as $n => $item) {
+        if ($item == 'Nil') {
+            $data[$n] = null;
+        }
+    }
     $object->updateFromArray($data);
 
-     $object->insert();
+    $object->insert();
 
     return $object;
 }
@@ -63,8 +68,8 @@ create_database($db);
 $stdout = fopen('php://stdout', 'w');
 
 
-//map_data(fopen($path . '/food file.txt', 'r'), new NUTTAB_Food($db), $stdout);
+map_data(fopen($path . '/food file.txt', 'r'), new NUTTAB_Food($db), $stdout);
 //map_data(fopen($path . '/Nutrient file.txt', 'r'), new NUTTAB_FoodNutrient($db), $stdout);
 //map_data(fopen($path . '/Recipes.txt', 'r'), new NUTTAB_Recipe($db), $stdout, "\t");
-map_data(fopen($path . '/Retention Factors.txt', 'r'), new NUTTAB_Retention($db), $stdout, "\t");
+//map_data(fopen($path . '/Retention Factors.txt', 'r'), new NUTTAB_Retention($db), $stdout, "\t");
 

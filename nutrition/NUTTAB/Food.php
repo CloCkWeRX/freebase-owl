@@ -4,24 +4,20 @@ require_once 'NUTTAB/Base.php';
 class NUTTAB_Food extends NUTTAB_Base {
 
     public $food_id;
-    public $group_name;
-    public $sub_group_name;
-    public $description = "";
     public $title = "";
     public $alias = "";
-
-    public $nitrogen_factor = 0.0;
-    public $fat_factor = 0.0;
-
-        
-    public $edible_description = "";
-    public $refuse_description = "";
-
+    public $description = "";
     public $scientific_name;
     public $derivation;
+    public $nitrogen_factor = 0.0;
+    public $fat_factor = 0.0;
     public $specific_gravity;
     public $sample_details;
+    public $refuse_description = "";
+    public $edible_description = "";
 
+    public $group_name;
+    public $sub_group_name;
     public $sort_order;
 
     public function getTableName() {
@@ -57,8 +53,8 @@ class NUTTAB_Food extends NUTTAB_Base {
         return 'CREATE TABLE foods (
             food_id VARCHAR(8),
             title VARCHAR(200),
-            description TEXT,
             alias VARCHAR(30),
+            description TEXT,
             scientific_name VARCHAR(60),
             derivation VARCHAR(20),
             

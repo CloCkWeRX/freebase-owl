@@ -6,6 +6,12 @@ if (file_exists('config.php')) {
     $path = dirname(__FILE__);
 }
 
+function render_food($food) {
+    ob_start();
+    include dirname(dirname(__FILE__)) . '/templates/Food.php';
+    return ob_get_clean();
+}
+
 require_once 'MDB2.php';
 require_once 'USDA/Base.php';
 require_once 'USDA/DataLink.php';
