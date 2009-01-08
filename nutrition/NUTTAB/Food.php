@@ -35,19 +35,19 @@ class NUTTAB_Food extends NUTTAB_Base {
     public function getKeys() {
         $keys = array();
         $keys[] = 'food_id';
-        $keys[] = 'group_name';
-        $keys[] = 'sub_group_name';
-        $keys[] = 'description';
         $keys[] = 'title';
         $keys[] = 'alias';
-        $keys[] = 'nitrogen_factor';
-        $keys[] = 'fat_factor';
-        $keys[] = 'edible_description';
-        $keys[] = 'refuse_description';
+        $keys[] = 'description';
         $keys[] = 'scientific_name';
         $keys[] = 'derivation';
+        $keys[] = 'nitrogen_factor';
+        $keys[] = 'fat_factor';
         $keys[] = 'specific_gravity';
         $keys[] = 'sample_details';
+        $keys[] = 'refuse_description';
+        $keys[] = 'edible_description';
+        $keys[] = 'group_name';
+        $keys[] = 'sub_group_name';
         $keys[] = 'sort_order';
 
         return $keys;
