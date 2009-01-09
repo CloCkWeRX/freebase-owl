@@ -51,7 +51,13 @@
 		<rdfs:domain rdf:resource="#Food" />
 	</owl:ObjectProperty>
 
-	<!-- http://en.wikipedia.org/wiki/Nutrient_density -->
+	<owl:ObjectProperty rdf:ID="has_foodgroup">
+		<rdfs:label>has food group</rdfs:label>
+		<rdfs:comment>Indicates a Food belongs in this Group</rdfs:comment>
+		<rdfs:domain rdf:resource="#Food" />
+		<rdfs:range rdf:resource="#FoodGroup" />
+		<owl:inverseOf rdf:resource="#contains_food"/>
+	</owl:ObjectProperty>
 
 
 	<owl:Class rdf:ID="FoodNutrient">
@@ -66,7 +72,16 @@
 
 	<owl:Class rdf:ID="FoodGroup">
 		<rdfs:label>Food Group</rdfs:label>
+		<rdfs:comment>A general category for a Food</rdfs:comment>
 	</owl:Class>
+
+	<owl:ObjectProperty rdf:ID="contains_food">
+		<rdfs:label>contains food</rdfs:label>
+		<rdfs:comment>Indicates a Food belongs to this group</rdfs:comment>
+		<rdfs:domain rdf:resource="#FoodGroup" />
+		<rdfs:range rdf:resource="#Food" />
+		<owl:inverseOf rdf:resource="#has_foodgroup"/>
+	</owl:ObjectProperty>
 
 	<owl:Class rdf:ID="Weight">
 		<rdfs:label>Weight/Measurement</rdfs:label>
