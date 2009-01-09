@@ -15,6 +15,9 @@
 	<owl:Ontology rdf:about="">
 		<owl:versionInfo>$Id$</owl:versionInfo>
 		<rdfs:comment>Nutrition</rdfs:comment>
+		<!-- http://www.mindswap.org/2003/vegetarian.owl -->
+		<!-- TODO: skos ftw! -->
+		<!-- Map to bio / life sciences ontologies? -->
 	</owl:Ontology>
 
 	<!-- A mostly edible or consumable thing -->
@@ -59,6 +62,26 @@
 		<owl:inverseOf rdf:resource="#contains_food"/>
 	</owl:ObjectProperty>
 
+	<owl:ObjectProperty rdf:ID="refuse_description">
+		<rdfs:label>Refuse description</rdfs:label>
+		<rdfs:comment>Description of inedible parts of a food item (refuse), such as seeds or bone</rdfs:comment>
+		<rdfs:domain rdf:resource="#Food" />
+	</owl:ObjectProperty>
+
+	<owl:ObjectProperty rdf:ID="refuse_percentage">
+		<rdfs:label>Refuse percentage</rdfs:label>
+		<rdfs:comment>How much of a food is refuse</rdfs:comment>
+		<rdfs:domain rdf:resource="#Food" />
+		<!-- type as xsd:double / percentage -->
+	</owl:ObjectProperty>
+
+	<owl:ObjectProperty rdf:ID="scientific_name">
+		<rdfs:label>Scientific name</rdfs:label>
+		<rdfs:comment>Scientific name of the food item. Given for the least processed form of the food (usually raw), if applicable</rdfs:comment>
+		<rdfs:domain rdf:resource="#Food" />
+		<!-- subpropertyof dc:title -->
+	</owl:ObjectProperty>
+
 
 	<owl:Class rdf:ID="FoodNutrient">
 		<rdfs:label>Food Nutrient</rdfs:label>
@@ -87,5 +110,14 @@
 		<rdfs:label>Weight/Measurement</rdfs:label>
 		<rdfs:comment>An available measurement for the food, for instance, "a cup of sugar", and the mapping to grams. You can calculate total kilo-calories (kcal) available by adding fat factor, carbohydrate factor, and protein factor of a food multiplied by the number of grams</rdfs:comment>
 	</owl:Class>
+
+	<owl:ObjectProperty rdf:ID="grams">
+		<rdfs:label>grams</rdfs:label>
+		<rdfs:comment>Number of grams in this weight/measurement</rdfs:comment>
+		<rdfs:domain rdf:resource="#Weight" />
+		<rdfs:range rdf:resource="&xsd;positiveInteger" />
+
+		<!-- <dbpprop:unit rdf:resource="http://dbpedia.org/resource/Gram"/> -->
+	</owl:ObjectProperty>
 
 </rdf:RDF>
