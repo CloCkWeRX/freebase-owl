@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE rdf:RDF [
+     <!ENTITY food "http://www.w3.org/TR/2003/PR-owl-guide-20031209/food#" >
+     <!ENTITY owl  "http://www.w3.org/2002/07/owl#" >
+     <!ENTITY xsd  "http://www.w3.org/2001/XMLSchema#" >
+   ]>
+
+
+<rdf:RDF
+	xmlns:rdf ="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xml:base="http://lauken.com/doconnor/nutrition/0.1/">
+
+	<owl:Ontology rdf:about="">
+		<owl:versionInfo>$Id$</owl:versionInfo>
+		<rdfs:comment>Nutrition</rdfs:comment>
+	</owl:Ontology>
+
+	<!-- A mostly edible or consumable thing -->
+	<owl:Class rdf:ID="Food">
+		<rdfs:label>Food</rdfs:label>
+		<owl:equivalentClass rdf:resource="&food;ConsumableThing"/>
+		<rdfs:comment>An item which can be consumed as a source of Nutrients</rdfs:comment>
+	</owl:Class>
+
+
+	<!-- TODO: type these as FunctionalProperty ? -->
+	<owl:ObjectProperty rdf:ID="nitrogen_factor">
+		<rdfs:label>Nitrogen Factor</rdfs:label>
+		<rdfs:comment>Factor for calculating protein from nitrogen</rdfs:comment>
+		<rdfs:domain rdf:resource="#Food" />
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:ID="protein_factor">
+		<rdfs:label>Protein Factor</rdfs:label>
+		<rdfs:comment>Number of kilo-calories (kcal) from 1 gram of protein, based on available nitrogen</rdfs:comment>
+		<rdfs:domain rdf:resource="#Food" />
+		<!-- http://www.njfl.com/protein_method.htm -->
+	</owl:ObjectProperty>
+
+	<owl:ObjectProperty rdf:ID="fat_factor">
+		<rdfs:label>Fat Factor</rdfs:label>
+		<rdfs:comment>Number of kilo-calories (kcal) from 1 gram of fat</rdfs:comment>
+		<rdfs:domain rdf:resource="#Food" />
+	</owl:ObjectProperty>
+
+	<owl:ObjectProperty rdf:ID="carbohydrate_factor">
+		<rdfs:label>Carbohydrate Factor</rdfs:label>
+		<rdfs:comment>Number of kilo-calories (kcal) from 1 gram of carbohydrate</rdfs:comment>
+		<rdfs:domain rdf:resource="#Food" />
+	</owl:ObjectProperty>
+
+	<!-- http://en.wikipedia.org/wiki/Nutrient_density -->
+
+
+	<owl:Class rdf:ID="FoodNutrient">
+		<rdfs:label>Food Nutrient</rdfs:label>
+		<rdfs:comment>A measurement of a Nutrient in a Food</rdfs:comment>
+	</owl:Class>
+
+	<owl:Class rdf:ID="Nutrient">
+		<rdfs:label>Nutrient</rdfs:label>
+		<rdfs:comment>A nutrient is food or chemicals that an organism needs to live and grow or a substance used in an organism's metabolism which must be taken in from its environment</rdfs:comment>
+	</owl:Class>
+
+	<owl:Class rdf:ID="FoodGroup">
+		<rdfs:label>Food Group</rdfs:label>
+	</owl:Class>
+
+	<owl:Class rdf:ID="Weight">
+		<rdfs:label>Weight/Measurement</rdfs:label>
+		<rdfs:comment>An available measurement for the food, for instance, "a cup of sugar", and the mapping to grams. You can calculate total kilo-calories (kcal) available by adding fat factor, carbohydrate factor, and protein factor of a food multiplied by the number of grams</rdfs:comment>
+	</owl:Class>
+
+</rdf:RDF>
