@@ -1,0 +1,19 @@
+GOAL:
+Model and integrate all of http://www.langual.org/langual_linkcategory.asp?CategoryID=4&Category=Food+Composition
+
+TASKS:
+    * Resolve licensing agreements with Aust. government for rights to reproduce data (in progress)
+    * Model Canadian data
+    * Find or create a suitable ontology for Nutrition data (I would have expected some common terms from the bio-rdf community, but I don't have the background to know what I'm looking for)
+    * Model the USDA, NUTTAB and Canadian extensions as appropriate
+    * Find or create a list of terms used in nutrition data (shorthand/abbreivations) - ie CBODF = "Carbohydrate by difference", but I can't seem to find a good list of these outside of the USDA data itself.
+    * Create owl:sameAs links to DBPedia topics in some automated fashion - this is tricky, because a lot of the data is written as "Cheese, blue" and is much more granular than wikipedia articles about Cheese.
+    * Create owl:sameAs links to Freebase topics in some automated fashion - ditto
+    * Interlink Canadian, NUTTAB, USDA data in some automated fashion - similar - different naming schemes make using dc:title as a IFP a bit annoying.
+    * Render full sets of RDF for each
+    * Publish these somewhere - http://lauken.com/doconnor/ is not suitable for anything more than a sandbox
+    * Provide human interfaces as appropriate - if anyone wanted to create shiny XSLT -> XHTML perhaps; or PHP glue...
+    * Setup a SPARQL endpoint (I have a hell of a time doing this in my development environment, so this might not happen) - HELP!
+    * Provide unit test coverage for all generator tools
+    * Refactor lots
+      * Remodel as 'measurements' and 'measurement_type' using OBO, MGED and other upper level science ontologies where plausible
