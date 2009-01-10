@@ -20,7 +20,8 @@ ob_start();
 <rdf:RDF 
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:usda="http://lauken.com/doconnor/food/0.1/#"
+    xmlns:usda="http://lauken.com/doconnor/food/0.1/schema.rdf#"
+    xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/"
 
     xmlns:dbpprop="http://dbpedia.org/property/">
     
@@ -87,26 +88,28 @@ ob_start();
                 <dc:date><?php print $source->year; ?></dc:date>
             
                 <?php if (!empty($source->journal)) { ?>
+                    <prism:publicationName><?php print $source->journal; ?></prism:publicationName>
                     <!-- Look up journal name? -->
+                    <!-- http://bioguid.info/services/ and http://bioguid.info/openurl/  -->
                 <?php } ?>
-
 
                 <?php if (!empty($source->volume_city)) { ?>
-                    <!-- Look up journal name? -->
+                    <!-- Note: this may be a city name not a volume because of USDA data -->
+                    <prism:volume><?php print $source->volume_city; ?></prism:volume>
                 <?php } ?>
 
-
                 <?php if (!empty($source->issue_state)) { ?>
-                    <!-- Look up journal name? -->
+                    <!-- Note: this may be a state code (US) not an issue because of USDA data -->
+                    <prism:issueIdentifier><?php print $source->issue_state; ?></prism:issueIdentifier>
                 <?php } ?>
 
 
                 <?php if (!empty($source->start_page)) { ?>
-                    <!-- Look up journal name? -->
+                    <prism:startingPage><?php print $source->start_page; ?></prism:startingPage>
                 <?php } ?>
 
                 <?php if (!empty($source->end_page)) { ?>
-                    <!-- Look up journal name? -->
+                    <prism:endingPage><?php print $source->end_page; ?></prism:endingPage>
                 <?php } ?>
             </usda:DataSource>
         <?php } ?>
