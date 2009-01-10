@@ -23,5 +23,6 @@ require_once 'USDA/Nutrient.php';
 require_once 'USDA/Source.php';
 require_once 'USDA/Weight.php';
 require_once 'XML/Beautifier.php';
+require_once 'Validate/US.php';
 
 $db = MDB2::connect($dsn);

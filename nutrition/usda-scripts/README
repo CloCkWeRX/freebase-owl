@@ -1,6 +1,6 @@
  0. Install dependencies
 $ sudo apt-get install php-pear mysql wget unzip
-$ sudo pear install -fa MDB2 XML_Beautifier
+$ sudo pear install -fa MDB2 XML_Beautifier Validate_US
 
  1. Get the SR21 data, extract it
 $ wget http://www.nal.usda.gov/fnic/foodcomp/Data/SR21/dnload/sr21.zip
