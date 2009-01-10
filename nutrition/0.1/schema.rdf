@@ -3,6 +3,8 @@
      <!ENTITY food "http://www.w3.org/TR/2003/PR-owl-guide-20031209/food#" >
      <!ENTITY owl  "http://www.w3.org/2002/07/owl#" >
      <!ENTITY xsd  "http://www.w3.org/2001/XMLSchema#" >
+     <!ENTITY mged "http://mged.sourceforge.net/ontologies/MGEDontology.owl#">
+     <!ENTITY obo  "http://www.obofoundry.org/ro/ro.owl#">
    ]>
 
 
@@ -18,6 +20,8 @@
 		<!-- http://www.mindswap.org/2003/vegetarian.owl -->
 		<!-- TODO: skos ftw! -->
 		<!-- Map to bio / life sciences ontologies? -->
+        <!-- http://mged.sourceforge.net/ontologies/MGEDontology.owl# -->
+        <!-- http://purl.org/science/owl/sciencecommons/cites_evidence_source ? --> 
 	</owl:Ontology>
 
 	<!-- A mostly edible or consumable thing -->
@@ -40,18 +44,24 @@
 		<rdfs:comment>Number of kilo-calories (kcal) from 1 gram of protein, based on available nitrogen</rdfs:comment>
 		<rdfs:domain rdf:resource="#Food" />
 		<!-- http://www.njfl.com/protein_method.htm -->
+        <!-- Its a concentration unit, sort of, needs remodelling! -->
+        <!-- <rdfs:subPropertyOf rdf:resource="&mged;ConcentrationUnit" /> -->
 	</owl:ObjectProperty>
 
 	<owl:ObjectProperty rdf:ID="fat_factor">
 		<rdfs:label>Fat Factor</rdfs:label>
 		<rdfs:comment>Number of kilo-calories (kcal) from 1 gram of fat</rdfs:comment>
 		<rdfs:domain rdf:resource="#Food" />
+        <!-- Its a concentration unit, sort of, needs remodelling! -->
+        <!-- <rdfs:subPropertyOf rdf:resource="&mged;ConcentrationUnit" /> -->
 	</owl:ObjectProperty>
 
 	<owl:ObjectProperty rdf:ID="carbohydrate_factor">
 		<rdfs:label>Carbohydrate Factor</rdfs:label>
 		<rdfs:comment>Number of kilo-calories (kcal) from 1 gram of carbohydrate</rdfs:comment>
 		<rdfs:domain rdf:resource="#Food" />
+        <!-- Its a concentration unit, sort of, needs remodelling! -->
+        <!-- <rdfs:subPropertyOf rdf:resource="&mged;ConcentrationUnit" /> -->
 	</owl:ObjectProperty>
 
 	<owl:ObjectProperty rdf:ID="has_foodgroup">
@@ -60,6 +70,9 @@
 		<rdfs:domain rdf:resource="#Food" />
 		<rdfs:range rdf:resource="#FoodGroup" />
 		<owl:inverseOf rdf:resource="#contains_food"/>
+
+        <!-- I wonder if this is correct? obo contains seems to feel like 'physically contained in' -->
+        <rdfs:subPropertyOf rdf:resource="&obo;contained_in;" />
 	</owl:ObjectProperty>
 
 	<owl:ObjectProperty rdf:ID="refuse_description">
@@ -73,6 +86,8 @@
 		<rdfs:comment>How much of a food is refuse</rdfs:comment>
 		<rdfs:domain rdf:resource="#Food" />
 		<!-- type as xsd:double / percentage -->
+        <!-- Its a concentration unit, sort of, needs remodelling! -->
+        <!-- <rdfs:subPropertyOf rdf:resource="&mged;ConcentrationUnit" /> -->
 	</owl:ObjectProperty>
 
 	<owl:ObjectProperty rdf:ID="scientific_name">
@@ -104,11 +119,16 @@
 		<rdfs:domain rdf:resource="#FoodGroup" />
 		<rdfs:range rdf:resource="#Food" />
 		<owl:inverseOf rdf:resource="#has_foodgroup"/>
+
+        <!-- I wonder if this is correct? obo contains seems to feel like 'physically contained in' -->
+        <rdfs:subPropertyOf rdf:resource="&obo;contains;" />
 	</owl:ObjectProperty>
 
 	<owl:Class rdf:ID="Weight">
 		<rdfs:label>Weight/Measurement</rdfs:label>
 		<rdfs:comment>An available measurement for the food, for instance, "a cup of sugar", and the mapping to grams. You can calculate total kilo-calories (kcal) available by adding fat factor, carbohydrate factor, and protein factor of a food multiplied by the number of grams</rdfs:comment>
+        <!-- extends &mged;Measurement ?-->
+        <rdfs:subClassOf rdf:resource="&mged;QuanityUnit" />
 	</owl:Class>
 
 	<owl:ObjectProperty rdf:ID="grams">
@@ -116,8 +136,18 @@
 		<rdfs:comment>Number of grams in this weight/measurement</rdfs:comment>
 		<rdfs:domain rdf:resource="#Weight" />
 		<rdfs:range rdf:resource="&xsd;positiveInteger" />
-
+        <!-- http://mged.sourceforge.net/ontologies/MGEDontology.php#g -->
 		<!-- <dbpprop:unit rdf:resource="http://dbpedia.org/resource/Gram"/> -->
 	</owl:ObjectProperty>
+
+	<owl:ObjectProperty rdf:ID="units">
+		<rdfs:label>units</rdfs:label>
+		<rdfs:comment>The type of weight in this measurement</rdfs:comment>
+		<rdfs:domain rdf:resource="#Weight" />
+		<rdfs:range rdf:resource="&mged;Unit" />
+        <!-- subproperty of measurement_type ? -->
+        <!-- http://mged.sourceforge.net/ontologies/MGEDontology.php#g -->
+	</owl:ObjectProperty>
+
 
 </rdf:RDF>
