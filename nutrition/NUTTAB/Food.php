@@ -1,5 +1,6 @@
 <?php
 require_once 'NUTTAB/Base.php';
+require_once 'NUTTAB/OrganicAcid.php';
 
 class NUTTAB_Food extends NUTTAB_Base {
 
@@ -19,6 +20,16 @@ class NUTTAB_Food extends NUTTAB_Base {
     public $group_name;
     public $sub_group_name;
     public $sort_order;
+
+    public $acids;
+    public $minerals;
+
+    public function __construct(MDB2_Driver_Common $db) {
+        parent::__construct($db);
+
+        $this->acids = new NUTTAB_OrganicAcid($db);
+        $this->minerals = new NUTTAB_Mineral($db);
+    }
 
     public function getTableName() {
         return 'foods';
@@ -74,5 +85,12 @@ class NUTTAB_Food extends NUTTAB_Base {
             KEY `food_id` (`food_id`)
 
         )';
+    }
+
+    public function load($id) {
+        parent::load($id);
+
+        $this->acids->load($id);
+        $this->minerals->load($id);
     }
 }
