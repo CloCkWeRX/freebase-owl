@@ -21,6 +21,25 @@ ob_start();
 
     xmlns:dbpprop="http://dbpedia.org/property/">
 
+    <!--
+    This data is copyright of the Commonwealth of Australia, Food Standards Australia New Zealand and 
+    Adjunct Professor H. Greenfield and others at the University of New South Wales. Certain
+    material used in this product has been reproduced with the permission of the Commonwealth
+    of Australia, Food Standards Australia New Zealand, Associate Professor H. Greenfield and
+    others at the University of New South Wales and other researchers.
+
+    To use this data in a commercial product, see http://www.foodstandards.gov.au/_srcfiles/Licence%20Agreement%202007.pdf
+    or contact NPC@foodstandards.gov.au
+    -->
+
+    <foaf:Document rdf:about="">
+       <foaf:primaryTopic rdf:resource="#food-<?php print $food->getID(); ?>" />
+       <dc:creator>Commonwealth of Australia</dc:creator>
+       <dc:creator>Food Standards Australia New Zealand</dc:creator>
+       <dc:creator>Heather Greenfield</dc:creator>
+       <dc:creator>University of New South Wales</dc:creator>
+    </foaf:Document>
+
     <?php print render_food($food); ?>
 
     <?php if (!empty($food->group_name)) { ?>
