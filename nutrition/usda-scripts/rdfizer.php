@@ -15,6 +15,8 @@ $food->load($nbd_id);
 $group = $food->group;
 
 
+$is_state = !empty($source->issue_state) && Validate_US::region($source->issue_state);
+
 ob_start();
 ?>
 <rdf:RDF 
@@ -94,13 +96,20 @@ ob_start();
                 <?php } ?>
 
                 <?php if (!empty($source->volume_city)) { ?>
-                    <!-- Note: this may be a city name not a volume because of USDA data -->
-                    <prism:volume><?php print $source->volume_city; ?></prism:volume>
+                    <!-- Note: this may be a city name not a volume because of USDA data; we look at state data first -->
+                    <?php if (!$is_state) { ?>
+                        <prism:volume><?php print $source->volume_city; ?></prism:volume>
+                    <?php } else { ?>
+                        <!-- City: <?php print $source->volume_city; ?> -->
+                    <?php } ?>
                 <?php } ?>
 
                 <?php if (!empty($source->issue_state)) { ?>
-                    <!-- Note: this may be a state code (US) not an issue because of USDA data -->
-                    <prism:issueIdentifier><?php print $source->issue_state; ?></prism:issueIdentifier>
+                    <?php if (!$is_state) { ?>
+                        <prism:issueIdentifier><?php print $source->issue_state; ?></prism:issueIdentifier>
+                    <?php } else { ?>
+                        <!-- State: <?php print $source->issue_state; ?> -->
+                    <?php } ?>
                 <?php } ?>
 
 
