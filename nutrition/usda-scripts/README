@@ -1,6 +1,6 @@
  0. Install dependencies
 $ sudo apt-get install php-pear mysql wget unzip
-$ sudo pear install -fa MDB2 XML_Beautifier Validate_US
+$ sudo pear install -fa MDB2 XML_Beautifier Validate_US Net_URL2
 
  1. Get the SR21 data, extract it
 $ wget http://www.nal.usda.gov/fnic/foodcomp/Data/SR21/dnload/sr21.zip
@@ -17,6 +17,9 @@ CREATE DATABASE usda;
 
  4. Run the install script. This will take a while as it imports all data. If it fails, just DROP the database and start again
 $ php install.php
+
+ 4a. Resolve / link everything
+$ php resolve_all.php
 
  5. Give it a shot from the command line. "1002" is the USDA food id.
 $ php rdfizer.php 1002
