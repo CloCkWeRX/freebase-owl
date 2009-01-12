@@ -12,6 +12,7 @@ class USDA_DataSource extends USDA_Base {
     public $issue_state;
     public $start_page;
     public $end_page;
+    public $openurl;
     
 
     public function getKeys() {
