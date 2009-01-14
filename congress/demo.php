@@ -1,6 +1,7 @@
 <?php
 require_once 'HTML/TagCloud.php';
 require_once 'HTTP/Request2.php';
+require_once 'HTTP/Request2/Adapter/Mock.php';
 
 class ZemantaTopic {
     public $name;
@@ -27,6 +28,7 @@ class ZemantaClient {
               'format' => 'json',
               'return_categories' => 'dmoz',
               'return_images' => 0,
+              'return_rdf_links' => 1
         );
 
         $url = new Net_URL2('http://api.zemanta.com/services/rest/0.0/');
@@ -42,46 +44,9 @@ class ZemantaClient {
 
         $data = json_decode($json);
 
-        return $data->keywords;
+        return $data->markup->links;
     }
 
-	public function extractTopics2($text) {
-        $topics = array();
-        $topic = new ZemantaTopic();
-        $topic->name = "Cats";
-        $topic->occurences = 10;
-        $topic->links[] = 'http://cats.com/';
-
-        $topics[] = $topic;
-
-        $topic = new ZemantaTopic();
-        $topic->name = "Fish";
-        $topic->occurences = 99;
-        $topic->links[] = 'http://fish.com/';
-
-        $topics[] = $topic;
-
-
-
-        $topic = new ZemantaTopic();
-        $topic->name = "FishyForests";
-        $topic->occurences = 14;
-        $topic->links[] = 'http://fish.com/';
-
-        $topics[] = $topic;
-
-
-
-
-        $topic = new ZemantaTopic();
-        $topic->name = "Rainforests";
-        $topic->occurences = 19;
-        $topic->links[] = 'http://fish.com/';
-
-        $topics[] = $topic;
-
-        return $topics;
-    }
 }
 
 class Bill {
@@ -111,28 +76,70 @@ SEC. 15103. CONSTRUCTION OF GREENHOUSE FACILITY.
 
       (b) Authorization of Appropriations- There is authorized to be appropriated $12,000,000 to carry out this section. Such sums shall remain available until expended.";
 
-        return array($bill);
+        return array($bill, $bill, $bill, $bill, $bill, $bill, $bill, $bill, $bill, $bill);
     }
 }
 $reader = new BillReader();
 $bills = $reader->fetch();
 
 include_once 'config.php'; // defines $api_key
-$client = new ZemantaClient($api_key, new HTTP_Request2());
+
+//Mock!
+$data = file_get_contents(dirname(__FILE__).  '/test_data.json');
+
+
+$mock = new HTTP_Request2_Adapter_Mock();
+
+for ($i = 0; $i < 10; $i++) {
+    $response = new HTTP_Request2_Response('HTTP/1.1 400 Success');
+    $response->appendBody($data);
+
+    $mock->addResponse($response);
+}
+
+$request  = new HTTP_Request2();
+$request->setAdapter($mock);
+
+$client = new ZemantaClient($api_key, $request);
 
 $topics = array();
 foreach ($bills as $bill) {
-    $topics = array_merge($topics,  $client->extractTopics($bill->text) );
+    $topics = array_merge($topics,  $client->extractTopics($bill->text));
 }
+
+$stats = array();
+foreach ($topics as $topic) {
+    $title = $topic->target[0]->title;
+
+    if (!isset($stats[$title])) {
+        $stats[$title] = 0;
+    }
+
+    $stats[$title] += $topic->confidence * 10;
+}
+
 
 
 $tags = new HTML_TagCloud();
 
 foreach ($topics as $topic) {
-    $tags->addElement($topic->name, "", $topic->confidence);
+    $title = $topic->target[0]->title;
+
+    if (isset($stats[$title])) {
+        $tags->addElement($title, $topic->target[0]->url, $stats[$title]);
+        unset($stats[$title]);
+    }
 }
 
+?>
+<html>
+<head>
+</head>
+<body>
+<?php
 //Render tagcloud
 print $tags->buildALL();
-
-print '<pre>' . $bill->text . '</pre>';
+?>
+<pre><?php print_r($stats); ?></pre>
+</body>
+</html>
