@@ -1,0 +1,37 @@
+.holiday {
+	display: block;
+}
+
+.holiday .date {
+	color: blue;
+	display: block;
+}
+
+.flash.error {
+	color: red;
+	white-space: pre;
+}
+
+
+
+/** Chrome **/
+body {
+	font-family: Arial;
+	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	line-height:1.7em;
+	color:#0f0f0f;
+	margin: 0;
+	padding: 0;
+}
+
+#header {
+	background-color: rgb(230, 230, 240);
+	color: orange;
+	padding: 1.0em;
+	font-family: Tahoma
+
+}
+
+#content {
+	margin: 2.0em;
+}

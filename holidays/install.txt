@@ -1,0 +1,26 @@
+1) sudo pecl install pdo
+2) sudo pecl install pdo_mysql
+2) sudo pecl install json
+
+3) Add a virtualhost
+<VirtualHost *:80>
+	ServerName holidays
+	DocumentRoot c:/work/holidays
+
+        php_flag short_open_tag off
+</VirtualHost>
+
+4) cp config-recommended.php config-local.php
+5) vim config-local.php, set up the database details
+6) Create the DB
+   mysql -u (user) -p < schema.sql
+
+   # sample data - optional
+   mysql -u (user) -p < data.sql
+
+ 7) Import data from VX?
+
+ SELECT ph_id, ph_date, ph_name, state_tzlibc as `ph_timezone`
+	FROM tbl_public_holiday ph 
+
+	JOIN tbl_state st ON ph.state_id = st.state_id;
