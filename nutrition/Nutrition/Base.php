@@ -16,7 +16,9 @@ class Nutrition_Base {
     public function mapArray($keys, $values) {
 
         foreach ($keys as $n => $key) {
-            $this->$key = $values[$n];
+            if (isset($values[$n])) {
+                $this->$key = $values[$n];
+            }
         }
     }
 
