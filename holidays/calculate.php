@@ -36,7 +36,7 @@ foreach ($holidays as $row) {
     <form method="post" action="add.php">
         <input type="hidden" name="ph_name" value="<?php print $h->ph_name; ?>" />
         <input type="hidden" name="ph_timezone" value="<?php print $h->ph_timezone; ?>" />
-        <input type="hidden" name="ph_date" value="<?php print $h->ph_date; ?>" />
+        <input type="hidden" name="ph_date" value="@<?php print $h->ph_date; ?>" />
         <input type="hidden" name="source_uri" value="<?php print $h->source_uri; ?>" />
 
         <div class="holiday">
@@ -58,7 +58,7 @@ foreach ($holidays as $row) {
         <?php } ?>
 
         <?php if (empty($matches)) { ?>
-            <input type="submit" name="action" value="Create" />
+            <input type="submit" name="action" value="Add" />
         <?php } ?>
     </form>
     <?php

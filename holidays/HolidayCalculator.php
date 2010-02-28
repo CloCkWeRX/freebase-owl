@@ -8,14 +8,14 @@ class HolidayCalculator {
     protected $timezones = array();
 
     public function __construct() {
-        $this->timezones["ACT"] = "Australia/Canberra";
-        $this->timezones["NT"]  = "Australia/Darwin";
-        $this->timezones["SA"]  = "Australia/Adelaide";
-        $this->timezones["TAS"] = "Australia/Hobart";
-        $this->timezones["QLD"] = "Australia/Brisbane";
-        $this->timezones["WA"]  = "Australia/Perth";
-        $this->timezones["VIC"] = "Australia/Melbourne";
-        $this->timezones["NSW"] = "Australia/Sydney";
+        $this->timezones["ACT"] = "Australia/ACT";
+        $this->timezones["NT"]  = "Australia/North";
+        $this->timezones["SA"]  = "Australia/South";
+        $this->timezones["TAS"] = "Australia/Tasmania";
+        $this->timezones["QLD"] = "Australia/Queensland";
+        $this->timezones["WA"]  = "Australia/West";
+        $this->timezones["VIC"] = "Australia/Victoria";
+        $this->timezones["NSW"] = "Australia/NSW";
     }
 
     public function is(DateTime $date, $holidays = array()) {

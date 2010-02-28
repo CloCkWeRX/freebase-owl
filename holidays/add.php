@@ -7,7 +7,7 @@ require_once 'HolidayController.php';
 $controller = new HolidayController();
 
 $h = new Holiday();
-if (!empty($_POST['action']) && $_POST['action'] == 'add') {
+if (!empty($_POST['action']) && strtolower($_POST['action']) == 'add') {
 
     try {
         if (empty($_POST['ph_name'])) {
