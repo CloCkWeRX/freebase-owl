@@ -1,5 +1,6 @@
 <?php
 require_once 'date_compare.php';
+require_once 'Date/Calc.php';
 
 class HolidayCalculator {
     protected $holidays;
@@ -48,7 +49,7 @@ class HolidayCalculator {
             $start->setTimezone($tz);
             $end->setTimezone($tz);
 
-            $dates[] = array("New Year's Day", $state, $start->format('U'), $end->format('U'));
+            $dates[] = array("New Year's Day", $timezoneName, $start->format('U'), $end->format('U'));
         }
 
         return $dates;
@@ -74,7 +75,7 @@ class HolidayCalculator {
             $start->setTimezone($tz);
             $end->setTimezone($tz);
 
-            $dates[] = array("Australia Day", $state, $start->format('U'), $end->format('U'));
+            $dates[] = array("Australia Day", $timezoneName, $start->format('U'), $end->format('U'));
         }
 
         return $dates;
@@ -100,7 +101,7 @@ class HolidayCalculator {
             $start->setTimezone($tz);
             $end->setTimezone($tz);
 
-            $dates[] = array("Anzac Day", $state, $start->format('U'), $end->format('U'));
+            $dates[] = array("Anzac Day", $timezoneName, $start->format('U'), $end->format('U'));
         }
 
         return $dates;
@@ -125,7 +126,7 @@ class HolidayCalculator {
             $start->setTimezone($tz);
             $end->setTimezone($tz);
 
-            $dates[] = array("Christmas Day", $state, $start->format('U'), $end->format('U'));
+            $dates[] = array("Christmas Day", $timezoneName, $start->format('U'), $end->format('U'));
         }
 
         return $dates;
@@ -167,7 +168,7 @@ class HolidayCalculator {
             $start->setTimezone($tz);
             $end->setTimezone($tz);
 
-            $dates[] = array("Queen's Birthday", $state, $start->format('U'), $end->format('U'));
+            $dates[] = array("Queen's Birthday", $timezoneName, $start->format('U'), $end->format('U'));
         }
 
         return $dates;
@@ -201,7 +202,7 @@ class HolidayCalculator {
             $end->setDate($date->format("Y"), $date->format("m"), $date->format("d"));
             $end->setTime(0, 00, 00);
 
-            $dates[] = array("Good Friday", $state, $start->format('U'), $end->format('U'));
+            $dates[] = array("Good Friday", $timezoneName, $start->format('U'), $end->format('U'));
         }
 
         return $dates;
@@ -237,7 +238,7 @@ class HolidayCalculator {
             $end->modify("+3 day");
             $end->setTime(00, 00, 00);
 
-            $dates[] = array("Easter Monday", $state, $start->format('U'), $end->format('U'));
+            $dates[] = array("Easter Monday", $timezoneName, $start->format('U'), $end->format('U'));
         }
 
         return $dates;
@@ -316,7 +317,7 @@ class HolidayCalculator {
             $start->setTimezone($tz);
             $end->setTimezone($tz);
 
-            $dates[] = array("Labour Day", $state, $start->format('U'), $end->format('U'));
+            $dates[] = array("Labour Day", $timezoneName, $start->format('U'), $end->format('U'));
         }
 
         return $dates;
@@ -349,7 +350,7 @@ class HolidayCalculator {
         $start->setTimezone($tz);
         $end->setTimezone($tz);
 
-        $dates[] = array("Proclamation Day", $state, $start->format('U'), $end->format('U'));
+        $dates[] = array("Proclamation Day", $timezoneName, $start->format('U'), $end->format('U'));
 
         return $dates;
     }
@@ -388,7 +389,7 @@ class HolidayCalculator {
             $start->setTimezone($tz);
             $end->setTimezone($tz);
 
-            $dates[] = array("Boxing Day", $state, $start->format('U'), $end->format('U'));
+            $dates[] = array("Boxing Day", $timezoneName, $start->format('U'), $end->format('U'));
 
         }
 
