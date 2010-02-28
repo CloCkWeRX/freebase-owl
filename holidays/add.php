@@ -63,6 +63,7 @@ include 'header.php';
             <option>Australia/Adelaide</option>
             <option>Australia/Melbourne</option>
             <option>Australia/Brisbane</option>
+            <option>Australia/Perth</option>
             <!-- Todo: more -->
         </select>
         </p>
