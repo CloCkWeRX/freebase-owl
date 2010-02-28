@@ -24,7 +24,11 @@ class HolidayController {
     }
 
     public function find_holiday(PDO $dbh, $start_date, $timezone) {
-        $sql = 'SELECT ph_id, ph_date, ph_name, ph_timezone, source_uri FROM public_holidays WHERE ph_date = ' . $dbh->quote((int)$start_date) . ' AND ph_timezone = ' . $dbh->quote($timezone) . ' ORDER BY ph_date DESC';
+
+        $pre_start_date = (int)$start_date - (86400 * 3);
+        $post_start_date = (int)$start_date + (86400 * 3);
+
+        $sql = 'SELECT ph_id, ph_date, ph_name, ph_timezone, source_uri FROM public_holidays WHERE ph_date BETWEEN ' . $dbh->quote((int)$pre_start_date) . ' AND ' . $dbh->quote((int)$post_start_date) . ' AND ph_timezone = ' . $dbh->quote($timezone) . ' ORDER BY ph_date DESC';
 
         $stmt = $dbh->query($sql);
 
