@@ -13,6 +13,116 @@ $years = array(date("Y") - 1, date("Y"), date("Y") + 1);
 
 include 'header.php';
 ?>
+<script type="text/javascript">
+//     Timeline_ajax_url="<?php print BASEADDRESS; ?>timeline/timeline_ajax/simile-ajax-api.js";
+     Timeline_urlPrefix='http://api.simile-widgets.org/timeline/2.3.1/';
+//     Timeline_parameters='bundle=true';
+</script>
+
+<script src="http://api.simile-widgets.org/timeline/2.3.1/timeline-api.js"
+      type="text/javascript"></script>
+
+<script type="text/javascript">
+    var tl;
+    window.onload = function() {
+        var eventSource = new Timeline.DefaultEventSource();
+
+        var zones = [
+            {   start:    "Fri Nov 22 1963 00:00:00 GMT-0600",
+                end:      "Mon Nov 25 1963 00:00:00 GMT-0600",
+                magnify:  10,
+                unit:     Timeline.DateTime.DAY
+            },
+            {   start:    "Fri Nov 22 1963 09:00:00 GMT-0600",
+                end:      "Sun Nov 24 1963 00:00:00 GMT-0600",
+                magnify:  5,
+                unit:     Timeline.DateTime.HOUR
+            },
+            {   start:    "Fri Nov 22 1963 11:00:00 GMT-0600",
+                end:      "Sat Nov 23 1963 00:00:00 GMT-0600",
+                magnify:  5,
+                unit:     Timeline.DateTime.MINUTE,
+                multiple: 10
+            },
+            {   start:    "Fri Nov 22 1963 12:00:00 GMT-0600",
+                end:      "Fri Nov 22 1963 14:00:00 GMT-0600",
+                magnify:  3,
+                unit:     Timeline.DateTime.MINUTE,
+                multiple: 5
+            }
+        ];
+        var zones2 = [
+            {   start:    "Fri Nov 22 1963 00:00:00 GMT-0600",
+                end:      "Mon Nov 25 1963 00:00:00 GMT-0600",
+                magnify:  10,
+                unit:     Timeline.DateTime.WEEK
+            },
+            {   start:    "Fri Nov 22 1963 09:00:00 GMT-0600",
+                end:      "Sun Nov 24 1963 00:00:00 GMT-0600",
+                magnify:  5,
+                unit:     Timeline.DateTime.DAY
+            },
+            {   start:    "Fri Nov 22 1963 11:00:00 GMT-0600",
+                end:      "Sat Nov 23 1963 00:00:00 GMT-0600",
+                magnify:  5,
+                unit:     Timeline.DateTime.MINUTE,
+                multiple: 60
+            },
+            {   start:    "Fri Nov 22 1963 12:00:00 GMT-0600",
+                end:      "Fri Nov 22 1963 14:00:00 GMT-0600",
+                magnify:  3,
+                unit:     Timeline.DateTime.MINUTE,
+                multiple: 15
+            }
+        ];
+
+        var theme = Timeline.ClassicTheme.create();
+        theme.event.bubble.width = 250;
+
+        var date = "<?php print date('r'); ?>"
+        var bandInfos = [
+            Timeline.createHotZoneBandInfo({
+                width:          "80%",
+                intervalUnit:   Timeline.DateTime.WEEK,
+                intervalPixels: 220,
+                zones:          zones,
+                eventSource:    eventSource,
+                date:           date,
+                timeZone:       -6,
+                theme:          theme
+            }),
+            Timeline.createHotZoneBandInfo({
+                width:          "20%",
+                intervalUnit:   Timeline.DateTime.MONTH,
+                intervalPixels: 200,
+                zones:          zones2,
+                eventSource:    eventSource,
+                date:           date,
+                timeZone:       -6,
+                overview:       true,
+                theme:          theme
+            })
+        ];
+        bandInfos[1].syncWith = 0;
+        bandInfos[1].highlight = true;
+
+
+        tl = Timeline.create(document.getElementById("tl"), bandInfos, Timeline.HORIZONTAL);
+        tl.loadXML("timeline.php", function(xml, url) { eventSource.loadXML(xml, url); });
+    }
+    var resizeTimerID = null;
+    window.onresize = function() {
+        if (resizeTimerID == null) {
+            resizeTimerID = window.setTimeout(function() {
+                resizeTimerID = null;
+                tl.layout();
+            }, 500);
+        }
+    }
+
+
+
+</script>
 <h1>Holidays within Australia</h1>
 <p>Gazetted public holidays within Australia. Need to <a href="add.php">add another</a> (check
 <?php foreach ($years as $year) { ?>
@@ -23,6 +133,8 @@ include 'header.php';
 <?php if (empty($result)) { ?>
     <p>No holidays available.</p>
 <?php } ?>
+
+<div id="tl" class="timeline-default" style="height: 300px;"></div>
 
 <?php foreach ($result as $h) { ?>
     <div class="holiday">
