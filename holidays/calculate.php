@@ -29,7 +29,7 @@ foreach ($holidays as $row) {
 
     $matches = array();
     foreach ($result as $match) {
-        $matches[] = $match;
+        $matches[] = clone $match;
     }
     ?>
 
