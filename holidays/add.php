@@ -35,8 +35,15 @@ if (!empty($_POST['action']) && strtolower($_POST['action']) == 'add') {
         $h->ph_name = $_POST['ph_name'];
         $h->source_uri = $_POST['source_uri'];
 
+        // Any existing?
+        $matches = $controller->find_holiday($dbh, $h->ph_date, $h->ph_timezone);
+        $existing = array();
+        foreach ($matches as $match) {
+            header('Location: view.php?id=' . $match->ph_id);
+            die();
+        }
 
-
+        // No existing, create
         $another_h = $controller->create($dbh, $h);
 
         header('Location: view.php?id=' . $another_h->ph_id);
