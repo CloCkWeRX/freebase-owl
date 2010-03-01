@@ -93,7 +93,7 @@ include 'header.php';
             }),
             Timeline.createHotZoneBandInfo({
                 width:          "20%",
-                intervalUnit:   Timeline.DateTime.MONTH,
+                intervalUnit:   Timeline.DateTime.YEAR,
                 intervalPixels: 200,
                 zones:          zones2,
                 eventSource:    eventSource,

@@ -33,7 +33,7 @@ foreach ($holidays as $row) {
     }
     ?>
 
-    <form method="post" action="add.php">
+    <form method="post" action="add.php" target="_blank">
         <input type="hidden" name="ph_name" value="<?php print $h->ph_name; ?>" />
         <input type="hidden" name="ph_timezone" value="<?php print $h->ph_timezone; ?>" />
         <input type="hidden" name="ph_date" value="@<?php print $h->ph_date; ?>" />
