@@ -10,6 +10,8 @@ $h = $controller->view($dbh, $_GET['id']);
 
 if (isset($_POST['action'])) {
     if ($_POST['action'] == 'remove') {
+        $security->challenge($_SERVER);
+
         $controller->remove($dbh, $h);
 
         header('Location: ' . BASEADDRESS);

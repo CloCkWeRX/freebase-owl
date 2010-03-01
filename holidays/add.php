@@ -3,11 +3,13 @@ require 'require.php';
 
 require_once 'HolidayController.php';
 
+$security->challenge($_SERVER);
 
 $controller = new HolidayController();
 
 $h = new Holiday();
 if (!empty($_POST['action']) && strtolower($_POST['action']) == 'add') {
+
 
     try {
         if (empty($_POST['ph_name'])) {
