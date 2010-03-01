@@ -9,10 +9,15 @@ $controller = new HolidayController();
 
 $result = $controller->all_between($dbh, strtotime("now - 1 month"), strtotime("now + 2 months"));
 
+$years = array(date("Y") - 1, date("Y"), date("Y") + 1);
+
 include 'header.php';
 ?>
 <h1>Holidays within Australia</h1>
-<p>Gazetted public holidays within Australia. Need to <a href="add.php">add another</a>? Perhaps you should verify it with <a href="http://www.australia.gov.au/topics/australian-facts-and-figures/public-holidays">these sources</a>.</p>
+<p>Gazetted public holidays within Australia. Need to <a href="add.php">add another</a> (check
+<?php foreach ($years as $year) { ?>
+    <a href="calculate.php?year=<?php print $year; ?>"><?php print $year; ?></a>
+<?php } ?>)? Perhaps you should verify it with <a href="http://www.australia.gov.au/topics/australian-facts-and-figures/public-holidays">these sources</a>.</p>
 <p>This is also available as <a href="rss.php">RSS 1.0</a>, <a href="csv.php">CSV</a> or <a href="ical.php">iCal</a>.</p>
 
 <?php if (empty($result)) { ?>
