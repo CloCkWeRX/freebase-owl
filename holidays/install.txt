@@ -11,7 +11,7 @@
 </VirtualHost>
 
 4) cp config-recommended.php config-local.php
-5) vim config-local.php, set up the database details
+5) vim config-local.php, set up the database details, admin credentials
 6) Create the DB
    mysql -u (user) -p < schema.sql
 
