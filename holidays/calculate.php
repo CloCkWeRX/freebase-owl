@@ -58,6 +58,7 @@ foreach ($holidays as $row) {
         <?php } ?>
 
         <?php if (empty($matches)) { ?>
+            <p>Check <a href="http://www.australia.gov.au/topics/australian-facts-and-figures/public-holidays">these sources</a></p>
             <input type="submit" name="action" value="Add" />
         <?php } ?>
     </form>
