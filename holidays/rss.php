@@ -13,6 +13,10 @@ $result = $controller->all($dbh);
 
 header('content-type: application/rss+xml');
 
+$holidays = array();
+foreach ($result as $h) {
+    $holidays[] = clone $h;
+}
 ?>
 <?xml version="1.0"?>
 <rdf:RDF
@@ -27,14 +31,14 @@ xmlns:dc="http://purl.org/dc/elements/1.1/">
 
         <items>
             <rdf:Seq>
-                <?php foreach ($result as $h) { ?>
+                <?php foreach ($holidays as $h) { ?>
                     <rdf:li rdf:resource="<?php print BASEADDRESS; ?>view.php?id=<?php print $h->ph_id; ?>" />
                 <?php } ?>
             </rdf:Seq>
         </items>
     </channel>
 
-    <?php foreach ($result as $h) { ?>
+    <?php foreach ($holidays as $h) { ?>
         <item rdf:about="<?php print BASEADDRESS; ?>view.php?id=<?php print $h->ph_id; ?>">
             <title><?php print htmlentities($h->ph_name); ?></title>
             <link><?php print BASEADDRESS; ?>view.php?id=<?php print $h->ph_id; ?></link>
