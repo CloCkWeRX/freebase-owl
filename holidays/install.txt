@@ -20,7 +20,7 @@
 
  7) Import data from VX?
 
- SELECT ph_id, ph_date, ph_name, state_tzlibc as `ph_timezone`
-	FROM tbl_public_holiday ph 
+SELECT ph_id, ph_date, ph_name, state_tzlibc as `ph_timezone`, 'https://vx.valex.com.au/' as `source_uri`
+	FROM tbl_public_holiday public_holidays 
 
-	JOIN tbl_state st ON ph.state_id = st.state_id;
+	JOIN tbl_state st ON public_holidays.state_id = st.state_id;
