@@ -500,3 +500,12 @@ insert into public_holidays (`ph_id`, `ph_date`, `ph_name`, `ph_timezone`, `sour
 insert into public_holidays (`ph_id`, `ph_date`, `ph_name`, `ph_timezone`, `source_uri`) values('469','1262264400','New Year\'s Day','Australia/Victoria','https://vx.valex.com.au/');
 insert into public_holidays (`ph_id`, `ph_date`, `ph_name`, `ph_timezone`, `source_uri`) values('470','1293800400','New Year\'s Day','Australia/Victoria','https://vx.valex.com.au/');
 insert into public_holidays (`ph_id`, `ph_date`, `ph_name`, `ph_timezone`, `source_uri`) values('471','1325336400','New Year\'s Day','Australia/Victoria','https://vx.valex.com.au/');
+
+insert  into `areas`(`area_id`,`area_name`,`polygon_coordinates`,`same_as_uri`) values (2,'Australian Capital Territory',NULL,'');
+insert  into `areas`(`area_id`,`area_name`,`polygon_coordinates`,`same_as_uri`) values (3,'Northern Territory',NULL,'');
+insert  into `areas`(`area_id`,`area_name`,`polygon_coordinates`,`same_as_uri`) values (4,'New South Wales',NULL,'');
+insert  into `areas`(`area_id`,`area_name`,`polygon_coordinates`,`same_as_uri`) values (5,'South Australia',NULL,'');
+insert  into `areas`(`area_id`,`area_name`,`polygon_coordinates`,`same_as_uri`) values (6,'Tasmania',NULL,'');
+insert  into `areas`(`area_id`,`area_name`,`polygon_coordinates`,`same_as_uri`) values (7,'Queensland',NULL,'');
+insert  into `areas`(`area_id`,`area_name`,`polygon_coordinates`,`same_as_uri`) values (8,'Western Australia',NULL,'');
+insert  into `areas`(`area_id`,`area_name`,`polygon_coordinates`,`same_as_uri`) values (9,'Victoria',NULL,'');

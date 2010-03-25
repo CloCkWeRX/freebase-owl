@@ -6,6 +6,7 @@ class Holiday {
     public $ph_name;
     public $ph_timezone = 'GMT';
     public $source_uri;
+    public $area_id;
 
 
     /** @todo Shift to controller? */

@@ -5,6 +5,7 @@ CREATE TABLE `public_holidays` (
   `ph_name` varchar(100) default NULL,
   `ph_timezone` varchar(100) default NULL,
   `source_uri` varchar(200),
+  `area_id` int (11) default NULL,
   PRIMARY KEY  (`ph_id`)
 );
 

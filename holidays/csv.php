@@ -7,8 +7,11 @@ require_once 'HolidayController.php';
 
 $controller = new HolidayController();
 
-$result = $controller->all($dbh);
-
+if (!empty($_GET['area_id'])) {
+    $result = $controller->allForArea($dbh, (int)$_GET['area_id']);
+} else {
+    $result = $controller->all($dbh);
+}
 
 header('content-type: text/csv');
 

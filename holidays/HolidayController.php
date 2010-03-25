@@ -13,6 +13,16 @@ class HolidayController {
         return $stmt;
     }
 
+    public function allForArea(PDO $dbh, $area_id) {
+        $sql = 'SELECT ph_id, ph_date, ph_name, ph_timezone, source_uri FROM public_holidays WHERE area_id = ' . $dbh->quote($area_id) . 'ORDER BY ph_date DESC';
+
+        $stmt = $dbh->query($sql);
+
+        $stmt->setFetchMode(PDO::FETCH_INTO, new Holiday());
+
+        return $stmt;
+    }
+
     public function all_between(PDO $dbh, $start_date, $end_date) {
         $sql = 'SELECT ph_id, ph_date, ph_name, ph_timezone, source_uri FROM public_holidays WHERE ph_date BETWEEN ' . $dbh->quote((int)$start_date) . ' AND ' . $dbh->quote((int)$end_date) . ' ORDER BY ph_date DESC';
 

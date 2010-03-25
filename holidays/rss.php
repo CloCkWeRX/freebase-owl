@@ -7,8 +7,12 @@ require_once 'HolidayController.php';
 
 $controller = new HolidayController();
 
-$result = $controller->all($dbh);
 
+if (!empty($_GET['area_id'])) {
+    $result = $controller->allForArea($dbh, (int)$_GET['area_id']);
+} else {
+    $result = $controller->all($dbh);
+}
 
 
 header('content-type: application/rss+xml');
@@ -18,7 +22,7 @@ foreach ($result as $h) {
     $holidays[] = clone $h;
 }
 ?>
-<<?php print '?xml version="1.0"?'; ?>>
+<?xml version="1.0"?>
 <rdf:RDF
 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"

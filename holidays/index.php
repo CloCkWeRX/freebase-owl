@@ -2,6 +2,7 @@
 require 'require.php';
 
 require_once 'HolidayController.php';
+require_once 'AreaController.php';
 
 
 
@@ -129,6 +130,28 @@ include 'header.php';
     <a href="calculate.php?year=<?php print $year; ?>"><?php print $year; ?></a>
 <?php } ?>)? Perhaps you should verify it with <a href="http://www.australia.gov.au/topics/australian-facts-and-figures/public-holidays">these sources</a>.</p>
 <p>This is also available as <a href="rss.php">RSS 1.0</a>, <a href="csv.php">CSV</a> or <a href="ical.php">iCal</a>.</p>
+
+<?php
+$area_controller = new AreaController();
+$areas = $area_controller->all($dbh);
+?>
+
+<?php if (!empty($areas)) { ?>
+    <h2>Per area</h2>
+    <table>
+
+    	<?php foreach ($areas as $area) { ?>
+        	<tr>
+        		<th><?php echo $area->area_name; ?></th>
+        		<th><a href='rss.php?area_id=<?php echo $area->area_id; ?>'>RSS</a></th>
+        		<th><a href='csv.php?area_id=<?php echo $area->area_id; ?>'>CSV</a></th>
+        		<th><a href='ical.php?area_id=<?php echo $area->area_id; ?>'>iCal</a></th>
+        	</tr>
+    	<?php } ?>
+
+    </table>
+
+<?php } ?>
 
 <?php if (empty($result)) { ?>
     <p>No holidays available.</p>
