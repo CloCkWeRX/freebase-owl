@@ -1,11 +1,12 @@
 <?php
-require_once 'Application.php';
-require_once 'Property.php';
-require_once 'Address.php';
-require_once 'Title.php';
-require_once 'Person.php';
-require_once 'ApplicationStage.php';
-require_once 'ApplicationController.php';
+function load_class($name) {
+    $path = dirname(__FILE__) . "/" . $name . ".php";
+    if (file_exists($path)) {
+        require_once $path;
+    }
+}
+
+spl_autoload_register('load_class');
 
 $path = dirname(__FILE__) . '/config-local.php';
 if (file_exists($path)) {
