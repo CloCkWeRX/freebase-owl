@@ -1,0 +1,1 @@
+Allows you to extract out definitions from freebase.com with PHP, and transform them into OWL / RDF / etc.
